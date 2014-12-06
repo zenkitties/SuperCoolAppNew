@@ -1,0 +1,179 @@
+<html ng-app="myApp">
+    
+<head>
+    <title>Let's Get Some Votes!</title>
+    
+
+    
+    <!--=================Bootstraps CSS Files=================-->
+    <link href="scripts/css/bootstrap.min.css" rel="stylesheet">
+    <link href="scripts/css/bootstrap-theme.min.css" rel="stylesheet">
+    
+    <!--=================Custom CSS Files====================-->
+    <link href="styles.css" rel="stylesheet">
+</head>
+    <body>
+        <div class="col-md-12">
+            
+            
+ <!--=======================UPLOAD YOUR AVATAR ==========================-->       
+        <div id="upload-container" class="col-md-3">
+            <div id="upload" ng-controller="UploadController">
+                <h3>Upload Avatar</h3>
+                
+                <span class="btn btn-primary fileinput-button btn-block"><br />
+                <i class="icon-plus icon-white"></i>
+                <input type="file" ng-model="image" name="file" data-url="home/upload" 
+                   multiple upload><span>Add files...</span>
+                </span>
+                
+                <div id="photo"><img ng-src="{{avatar.img[0]}}" /></div><br />
+                <button class="btn btn-success">Upload Your Photo</button><!--photo upload-->
+                
+                
+                <br /><br />
+        <!--=====SIMPLE UPVOTE MECHANISM=========-->
+        <up-vote></up-vote>
+        <!--=====SIMPLE UPVOTE MECHISM===========-->                
+                
+                
+            </div>
+        </div><!--start out bootstrap styling-->
+            
+  <!--==========================UPLOAD YOUR AVATAR END========================-->            
+            
+            
+        <div class="col-md-6"><!--Main content start-->
+            
+  <!--===========================LOGIN TO FACEBOOK APP========================-->          
+            <div class="voting-box">
+                <h3>Login with Facebook</h3>
+                
+                <div id="login">
+                    <form name="facebookForm" novalidate>
+                        <strong>Username: </strong><span><input class="form-control" type="email" name="email" ng-model="facemail" placeholder="email@facebook.com.." required /></span><br />
+                        <strong>Password: </strong><span></span><input class="form-control" type="password" name="password" ng-model="facepass" placeholder="password goes here..." required /></span><br />
+                        <button type="submit" class="btn btn-primary btn-block" ng-disabled="facebookForm.$invalid">Login Right Now!!</button>
+                    </form>
+                </div><!--login form-->
+            
+        <!--=====SIMPLE UPVOTE MECHANISM=========-->
+        <up-vote></up-vote>
+        <!--=====SIMPLE UPVOTE MECHISM===========-->
+            </div><!--facebook box-->
+            
+  <!--==========================LOGIN TO FACEBOOK APP END======================-->
+            
+  <!--=========================COMMENT APP START==============================-->            
+            
+            <div class="voting-box" ng-controller="CommentController">
+                <h3>Comment Form</h3><hr />
+                
+                <h4>Comments</h4>
+                    <ul ng-repeat="comments in users">
+                        <li>Name: <span class="blue">{{comments.name}}</span></li>
+                        <li>Email: <span class="blue">{{comments.email}}</span></li>
+                        <li>Comment: <span class="blue">{{comments.comment}}</span></li>
+                    </ul><hr /><!--end of user comments-->
+                
+                <h4>Comment Preview</h4>
+                <p>Name: <span class="blue"><strong ng-bind="username"></strong></span></p>
+                <p>Email: <span class="blue"><strong ng-bind="useremail"></strong></span></p>
+                <p>Comment: <span class="blue"><strong ng-bind="boxComment"></strong></span></p>
+                
+                <hr /><!--end of comment preview-->
+                
+                <h3>Leave us a comment</h3>
+                <div class="comment-form">
+                        <form name="commentForm" ng-model="commentForm" ng-submit="addComments(review)" novalidate>
+                            <p><label>Name:</label> <input class="form-control" type="text" ng-model="username" name="name" placeholder="name here..." required/></p>
+                            <p><label>Email:</label> <input class="form-control" type="email" ng-model="useremail" name="email" placeholder="email here..." required/></p>
+                            <p><label>Comment:</label> <textarea class="form-control" ng-model="boxComment" required></textarea></p>
+                            commentForm is {{commentForm.$valid}}
+                            <p><button class="btn btn-primary" ng-disabled="commentForm.$invalid">Add Comment</button></p>
+                        </form>
+                    </div><!--comment form-->
+                
+                <!--=====SIMPLE UPVOTE MECHANISM=========-->
+                <up-vote></up-vote>
+                <!--=====SIMPLE UPVOTE MECHISM===========-->
+            
+            </div><br/><!--comment box-->
+            
+  
+            
+            
+            <!--=========================COMMENT SYSTEM END======================-->
+        
+        </div>
+        <div class="col-md-3">
+            <div class="rightside-navs" <!--ng-controller="weatherCtrl"-->>
+                <h3>Weather App</h3><hr />
+                <div class="weather-form">
+                        <form ng-model="commentForm" ng-submit="findWeather(zip)" novalidate>
+                            <p><label>Zip Code:</label> <input class="form-control" type="number" ng-model="zip" name="name" placeholder="zipcode" required/></p>
+                            <p><button type="submit" value="Search" class="btn btn-primary">Get The Weather!</button></p>
+                    </form></div><hr />
+                
+                <p ng-show="zip">Searching the forecasts for: {{zip}}</p>
+            <div>
+                <h5>Forecast For: {{ place.location.city }}</h5>
+                <h6>Current: {{ place.item.condition.text }} | {{ place.item.condition.temp }}&deg; <img src="http://l.yimg.com/a/i/us/we/52/{{place.item.condition.code}}.gif"/></h6>
+                <div ng-repeat="forecast in place.item.forecast">
+                    <p><strong>{{ forecast.date }}</strong> – {{ forecast.text }}</p>
+                    <p>H: {{ forecast.high }}&deg; | L: {{ forecast.low }}&deg;</p>
+            </div>
+        </div>
+                <br />
+                
+        <!--=====SIMPLE UPVOTE MECHANISM=========-->
+        <up-vote></up-vote>
+        <!--=====SIMPLE UPVOTE MECHISM===========--> 
+                
+            
+            </div><!--weather application-->
+            <div class="rightside-navs">
+                <h3>Twitterfeed</h3><br />
+                <div></div>
+                
+                
+        <!--=====SIMPLE UPVOTE MECHANISM=========-->
+        <up-vote></up-vote>
+        <!--=====SIMPLE UPVOTE MECHISM===========--> 
+            
+            </div>
+            
+            
+            </div><!--last two divs for bootstrap styling-->
+        </div>
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        <!--==================Main AngularJS============--->
+        <script type="text/javascript" src="scripts/js/angular.js"></script>
+        <!--<script type="text/javascript" src="scripts/js/angular.min.js"></script>-->
+        <script type="text/javascript" src="scripts/js/angular-resource.min.js"></script>
+        <script type="text/javascript" src="scripts/js/angular-route.min.js"></script>
+    
+        <!--==================jQuery Scripts=============-->
+        <script type="text/javascript" src="scripts/js/jquery-1.11.1.min.js"></script>
+    
+        <!--==================Bootstraps=================-->
+        <script type="text/javascript" src="scripts/js/bootstrap.min.js"></script>
+        
+        <!--==================Custom Javascript Files============-->
+        <script type="text/javascript" src="app.js"></script>
+             
+    </body><!--the body of the beast -->
+</html>
